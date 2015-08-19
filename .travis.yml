@@ -29,8 +29,8 @@ before_install:
     #- sudo apt-get install -qq qt53declarative
 
   #setup compiler
-  - source /opt/qt53/bin/qt53-env.sh
-  - export CC=${REAL_CC} CXX=${REAL_CXX}
+  #- source /opt/qt53/bin/qt53-env.sh
+  #- export CC=${REAL_CC} CXX=${REAL_CXX}
 
 before_script:
   - mkdir build
