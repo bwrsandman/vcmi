@@ -1,27 +1,32 @@
 language: cpp
 
+sudo: false
+
+addons:
+  apt:
+    packages:
+      - g++-4.8
+      - cmake
+      - libboost1.55-all-dev
+      - zlib1g-dev
+      - libsdl2-dev
+      - libsdl2-ttf-dev
+      - libavformat-dev
+      - libswscale-dev
+      - $PACKAGE
+
 before_install:
-  #new boost
-  - sudo add-apt-repository --yes ppa:boost-latest/ppa
-  #new GCC
-  - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
   #new Clang
-  - sudo add-apt-repository --yes ppa:h-rayflood/llvm
+  #- sudo add-apt-repository --yes ppa:h-rayflood/llvm
   #new SDL2
-  - sudo add-apt-repository --yes ppa:zoogie/sdl2-snapshots
+  #- sudo add-apt-repository --yes ppa:zoogie/sdl2-snapshots
   #new Qt
-  - sudo add-apt-repository --yes ppa:beineri/opt-qt532
-  #new CMake
-  - sudo add-apt-repository --yes ppa:andykimpe/cmake 
+  #- sudo add-apt-repository --yes ppa:beineri/opt-qt532
 
-  - sudo apt-get update -qq
+    #- sudo apt-get update -qq
 
-  - sudo apt-get install -qq $SUPPORT
-  - sudo apt-get install -qq $PACKAGE
-  - sudo apt-get install -qq cmake libboost1.55-all-dev zlib1g-dev
-  - sudo apt-get install -qq libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev
-  - sudo apt-get install -qq libavformat-dev libswscale-dev
-  - sudo apt-get install -qq qt53declarative
+    #- sudo apt-get install -qq libsdl2-image-dev libsdl2-mixer-dev
+    #- sudo apt-get install -qq qt53declarative
 
   #setup compiler
   - source /opt/qt53/bin/qt53-env.sh
@@ -43,20 +48,20 @@ matrix:
     - env: ignore=this
   include:
     - compiler: clang # fails all the time - missing packages?
-      env: REAL_CC=clang-3.2 REAL_CXX=clang++-3.2 PACKAGE=clang-3.2 SUPPORT=g++-4.8 
+      env: REAL_CC=clang-3.2 REAL_CXX=clang++-3.2 PACKAGE=clang-3.2
     - compiler: clang
-      env: REAL_CC=clang-3.3 REAL_CXX=clang++-3.3 PACKAGE=clang-3.3 SUPPORT=g++-4.8 
+      env: REAL_CC=clang-3.3 REAL_CXX=clang++-3.3 PACKAGE=clang-3.3
     - compiler: clang
-      env: REAL_CC=clang-3.4 REAL_CXX=clang++-3.4 PACKAGE=clang-3.4 SUPPORT=g++-4.8 
+      env: REAL_CC=clang-3.4 REAL_CXX=clang++-3.4 PACKAGE=clang-3.4
     #- compiler: gcc # fails due to running out of memory - vcmi need too much of it for successfull compilation
     #  env: REAL_CC=gcc-4.7   REAL_CXX=g++-4.7     PACKAGE=g++-4.7   SUPPORT=
     #- compiler: gcc # same as 4.7
     #  env: REAL_CC=gcc-4.8   REAL_CXX=g++-4.8     PACKAGE=g++-4.8   SUPPORT=
 
-notifications:
-  email:
-    recipients:
-      - vcmi.fail@mixaill.tk
-      - saven.ivan@gmail.com
-    on_success: change
-    on_failure: always
+    #notifications:
+    #  email:
+    #    recipients:
+        #    - vcmi.fail@mixaill.tk
+        #    - saven.ivan@gmail.com
+        #    on_success: change
+        #    on_failure: always
